@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IA en Videojuegos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #e9ecef;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-light {
+            background-color: #f8f9fa;
+        }
+
+        .section-white {
+            background-color: #ffffff;
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .card-hover img {
+            height: 230px;
+            object-fit: cover;
+        }
+
+        .table-custom {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table-custom thead {
+            background-color: #dee2e6;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="section text-center section-white">
+    <div class="container">
+        <h1 class="fw-bold display-5">Inteligencia Artificial en Videojuegos</h1>
+        <p class="text-muted mt-4 col-md-8 mx-auto">
+            El Machine Learning ha redefinido la forma en que se diseñan los videojuegos modernos,
+            permitiendo sistemas adaptativos, mundos dinámicos y experiencias personalizadas.
+        </p>
+    </div>
+</section>
+
+<!-- DEFINICIÓN -->
+<section class="section section-light">
+    <div class="container col-md-9">
+        <h2 class="fw-semibold mb-4">Fundamento Tecnológico</h2>
+        <p>
+            El Machine Learning es una rama de la Inteligencia Artificial que permite a los sistemas
+            aprender patrones a partir de datos. En videojuegos, esto significa que los personajes,
+            entornos y sistemas de dificultad pueden evolucionar dinámicamente en función del comportamiento del jugador.
+        </p>
+        <p>
+            A diferencia de los sistemas tradicionales basados en reglas fijas, el aprendizaje automático
+            introduce adaptabilidad, optimización y toma de decisiones probabilística.
+        </p>
+    </div>
+</section>
+
+<!-- TABLA INTEGRADA -->
+<section class="section section-white">
+    <div class="container col-md-10">
+        <h2 class="fw-semibold mb-5">Tipos de Machine Learning Aplicados</h2>
+
+        <div class="table-responsive table-custom shadow-sm">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Cómo Funciona</th>
+                        <th>Aplicación en Juegos</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Supervisado</td>
+                        <td>Aprende a partir de datos etiquetados.</td>
+                        <td>Predicción de comportamiento del jugador.</td>
+                        <td>Personalización de experiencia.</td>
+                    </tr>
+                    <tr>
+                        <td>No Supervisado</td>
+                        <td>Identifica patrones sin etiquetas previas.</td>
+                        <td>Segmentación de estilos de juego.</td>
+                        <td>Optimización de diseño.</td>
+                    </tr>
+                    <tr>
+                        <td>Reinforcement Learning</td>
+                        <td>Aprende mediante recompensas y penalizaciones.</td>
+                        <td>NPCs que mejoran su estrategia.</td>
+                        <td>Mayor realismo e imprevisibilidad.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEMAS Y SOLUCIONES -->
+<section class="section section-light">
+    <div class="container col-md-9">
+        <h2 class="fw-semibold mb-4">Problemas Tradicionales vs Soluciones con ML</h2>
+        <p>
+            Antes del Machine Learning, los videojuegos dependían de comportamientos programados manualmente,
+            lo que generaba patrones repetitivos y poca variabilidad.
+        </p>
+
+        <ul class="mt-4">
+            <li><strong>NPCs predecibles:</strong> solucionado mediante aprendizaje por refuerzo.</li>
+            <li><strong>Escenarios limitados:</strong> superado con generación procedural basada en algoritmos.</li>
+            <li><strong>Dificultad desbalanceada:</strong> ajustada dinámicamente según rendimiento del jugador.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- FOLLETOS CLICKEABLES -->
+<section class="section section-white">
+    <div class="container">
+        <h2 class="fw-semibold text-center mb-5">Aplicaciones Específicas</h2>
+
+        <div class="row g-5">
+
+            <div class="col-md-6">
+                <a href="/npc" class="text-decoration-none text-dark">
+                    <div class="card card-hover bg-white shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e"
+                             class="card-img-top" alt="NPC Inteligentes">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bold">NPCs Inteligentes</h4>
+                            <p class="text-muted mt-3">
+                                Uso de Reinforcement Learning para crear personajes
+                                que adaptan tácticas, reaccionan estratégicamente
+                                y evolucionan según el jugador.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <a href="/procedural" class="text-decoration-none text-dark">
+                    <div class="card card-hover bg-white shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420"
+                             class="card-img-top" alt="Generación Procedural">
+                        <div class="card-body p-4">
+                            <h4 class="fw-bold">Generación Procedural</h4>
+                            <p class="text-muted mt-3">
+                                Modelos generativos que permiten crear mundos,
+                                niveles y misiones de manera automática,
+                                reduciendo el trabajo manual.
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

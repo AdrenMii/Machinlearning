@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>NPC System</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#070b14;
+    color:#e6edf3;
+    margin:0;
+    overflow-x:hidden;
+    font-family:system-ui;
+}
+
+/* ===== MARCO LATERAL FIJO ===== */
+
+.left-frame{
+    position:fixed;
+    left:0;
+    top:0;
+    width:110px;
+    height:100vh;
+    background:linear-gradient(180deg,#0f172a,#020617);
+    border-right:2px solid #00f0ff;
+    display:flex;
+    justify-content:center;
+    overflow:hidden;
+    z-index:1000;
+}
+
+.left-frame img{
+    position:absolute;
+    width:80px;
+    top:-150px;
+    animation: drop 12s linear infinite;
+    opacity:0.9;
+}
+
+@keyframes drop{
+    0%{ top:-150px; }
+    100%{ top:110vh; }
+}
+
+/* ===== CONTENIDO ===== */
+
+.main{
+    margin-left:120px;
+}
+
+/* HERO */
+
+.hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    padding-left:8%;
+}
+
+.hero-content{
+    width:45%;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:4rem;
+    font-weight:900;
+}
+
+.hero span{
+    color:#ff3d7f;
+}
+
+.hero p{
+    color:#9fb3c8;
+    margin-top:20px;
+}
+
+/* IMAGEN GTA MÁS A LA DERECHA + DESVANECIDO */
+
+.hero-image{
+    position:absolute;
+    right:-20%;
+    top:0;
+    width:60%;
+    height:100%;
+    background:
+    
+    /* DESVANECIDO FUERTE HACIA EL CENTRO (lado izquierdo de la imagen) */
+    linear-gradient(
+        to right,
+        #070b14 0%,
+        #070b14 15%,
+        rgba(7,11,20,0.9) 40%,
+        rgba(7,11,20,0.6) 55%,
+        transparent 75%
+    ),
+    
+    /* DESVANECIDO SUAVE EN EL BORDE DERECHO */
+    linear-gradient(
+        to left,
+        rgba(7,11,20,0.6) 0%,
+        transparent 3%
+    ),
+
+    url('https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/11/grand-theft-auto-6-jason-and-lucia.jpg');
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+/* SECCIONES */
+
+.section-dark{
+    background:#0d1320;
+    padding:120px 8%;
+}
+
+.section-darker{
+    background:#0a0f1a;
+    padding:120px 8%;
+}
+
+.card-custom{
+    background:#111827;
+    border:none;
+    padding:30px;
+    transition:0.3s;
+}
+
+.card-custom:hover{
+    transform:translateY(-8px);
+    border-left:4px solid #00f0ff;
+}
+
+/* GALERÍA */
+
+.gallery img{
+    width:100%;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- MARCO LATERAL -->
+<div class="left-frame">
+    <!-- AQUÍ VA TU PERSONAJE -->
+    <img src="img/npc-lateral.png">
+</div>
+
+<div class="main">
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<h1>NPC <span>ADAPTATIVO</span></h1>
+<p>
+Sistema autónomo capaz de analizar el entorno,
+aprender patrones del jugador y modificar su comportamiento
+en tiempo real.
+</p>
+</div>
+<div class="hero-image"></div>
+</section>
+
+<!-- ARQUITECTURA -->
+<section class="section-dark">
+<div class="container">
+<h2 class="mb-5">Arquitectura del Sistema</h2>
+<div class="row g-4">
+
+<div class="col-md-6 col-lg-3">
+<div class="card-custom">
+<h5>Percepción</h5>
+<p>Lectura de variables del entorno y estado del jugador.</p>
+</div>
+</div>
+
+<div class="col-md-6 col-lg-3">
+<div class="card-custom">
+<h5>Decisión</h5>
+<p>Selección dinámica de acciones optimizadas.</p>
+</div>
+</div>
+
+<div class="col-md-6 col-lg-3">
+<div class="card-custom">
+<h5>Memoria</h5>
+<p>Almacenamiento de eventos previos para ajustar conducta.</p>
+</div>
+</div>
+
+<div class="col-md-6 col-lg-3">
+<div class="card-custom">
+<h5>Recompensa</h5>
+<p>Evaluación de resultados para mejorar política interna.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- CASOS DE USO -->
+<section class="section-darker">
+<div class="container">
+<h2 class="mb-5">Casos de Uso</h2>
+<div class="row g-4">
+
+<div class="col-md-6">
+<div class="card-custom">
+<h5>Sandbox Urbano</h5>
+<p>NPC que reaccionan a reputación, crimen y eventos dinámicos.</p>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="card-custom">
+<h5>Survival Estratégico</h5>
+<p>Enemigos que aprenden rutas frecuentes del jugador.</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- GALERÍA -->
+<section class="section-dark">
+<div class="container">
+<h2 class="mb-5">Escenarios Visuales</h2>
+<div class="row gallery g-4">
+
+<div class="col-md-4">
+<img src="img/gallery1.jpg">
+</div>
+
+<div class="col-md-4">
+<img src="img/gallery2.jpg">
+</div>
+
+<div class="col-md-4">
+<img src="img/gallery3.jpg">
+</div>
+
+</div>
+</div>
+</section>
+
+</div>
+
+</body>
+</html>
