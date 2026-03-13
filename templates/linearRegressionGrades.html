@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Regresión Lineal</title>
+</head>
+<body>
+
+<h1>Predicción de Nota por Horas de Estudio</h1>
+
+<form method="POST">
+    <input name="hours" placeholder="Horas de estudio" required>
+    <button type="submit">Predecir</button>
+</form>
+
+{% if result %}
+<p>Nota estimada: {{ result }}</p>
+{% endif %}
+
+</body>
+</html>
