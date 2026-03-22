@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Linear Regression - Grade Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- NAVBAR -->
+{% include "navbar_light.html" %}
+
+<!-- HEADER -->
+<section class="bg-white py-5 border-bottom">
+    <div class="container py-3">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">WEEK 4 · ACTIVITY</span>
+        <h1 class="display-6 fw-semibold mb-2">Linear Regression</h1>
+        <p class="text-secondary fs-6 mb-0">Final grade prediction based on study hours</p>
+    </div>
+</section>
+
+<!-- CONTENIDO -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+
+            <!-- FORMULARIO -->
+            <div class="col-lg-5">
+                <div class="card border rounded-3 p-4 shadow-sm">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 d-inline-block" style="width:fit-content">Prediction</span>
+                    <h5 class="fw-semibold mb-4">Enter study hours</h5>
+                    <form method="POST">
+                        <div class="mb-4">
+                            <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Study hours</label>
+                            <input type="number" name="hours" class="form-control form-control-lg" placeholder="e.g. 10" required>
+                            <div class="form-text text-secondary">Enter a number between 1 and 20 hours.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">Predict grade →</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RESULTADO -->
+            <div class="col-lg-5">
+                {% if result is not none %}
+                <div class="card border border-primary rounded-3 p-4 h-100 d-flex flex-column justify-content-center text-center">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 d-inline-block mx-auto" style="width:fit-content">Result</span>
+                    <p class="text-secondary small text-uppercase fw-semibold mb-2" style="letter-spacing:.05em">Estimated grade</p>
+                    <p class="display-4 fw-semibold text-primary mb-1">{{ "%.2f"|format(result) }}</p>
+                    <p class="text-secondary small mb-0">out of 5.0</p>
+                </div>
+                {% else %}
+                <div class="card border rounded-3 p-4 h-100 d-flex flex-column justify-content-center text-center bg-white shadow-sm">
+                    <p class="text-secondary mb-0">The result will appear here after predicting.</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <!-- INFO DEL MODELO -->
+        <div class="row g-4 justify-content-center mt-2">
+            <div class="col-lg-10">
+                <div class="card border rounded-3 p-4 shadow-sm">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 d-inline-block" style="width:fit-content">About the model</span>
+                    <h5 class="fw-semibold mb-3">How does it work?</h5>
+                    <p class="text-secondary lh-lg mb-0">
+                        This model was trained with data from 20 students relating study hours to their final grade.
+                        It uses simple linear regression to find the relationship between both variables and predict grades for new inputs.
+                        The more study hours, the higher the predicted grade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="text-center mt-4">
+    <a href="/" style="position:fixed;bottom:32px;left:32px;width:48px;height:48px;background:#6610f2;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(102,16,242,0.4);"><img src="/static/home.png" style="width:24px;height:24px;filter:invert(1);"></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
