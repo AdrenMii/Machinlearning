@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from LineaRegression import calculateGrade
+from LineaRegression import calculateGrade, getGraphBase64
 from LogisticRegressionModel import predict_purchase, get_model_accuracy, get_confusion_matrix
 
 app = Flask(__name__)
@@ -23,6 +23,11 @@ def adaptive():
 @app.route('/anticheat')
 def anticheat():
     return render_template('anticheat.html')
+
+@app.route('/linear-concepts')
+def linearConcepts():
+    graph = getGraphBase64()
+    return render_template('linearRegressionConcepts.html', graph=graph)
 
 @app.route('/LineaRegression', methods=["GET", "POST"])
 def calculateGradeRoute():
