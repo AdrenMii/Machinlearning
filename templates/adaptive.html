@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adaptive Difficulty - AI in Video Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+        .card-tech{transition:0.2s;}
+        .card-tech:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(102,16,242,0.08);}
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- NAVBAR -->
+{% include "navbar_light.html" %}
+
+<!-- HEADER -->
+<section class="bg-white py-5 border-bottom">
+    <div class="container py-4">
+        <div class="col-lg-7">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">USE CASE 3 · SUPERVISED LEARNING</span>
+            <h1 class="display-6 fw-semibold mb-3">Adaptive Difficulty System</h1>
+            <p class="text-secondary fs-6 lh-lg mb-0">
+                A Machine Learning system that monitors player performance in real time
+                and automatically adjusts the game's difficulty to maintain the optimal
+                challenge level for each individual player.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEM DESCRIPTION -->
+<section class="py-5" id="description">
+    <div class="container col-lg-8">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">PROBLEM</span>
+        <h2 class="fw-semibold mb-4">Problem Description</h2>
+        <p class="text-secondary lh-lg">
+            Traditional video games use fixed difficulty levels — easy, medium, hard — which often
+            fail to match the actual skill of each player. A beginner may find the game frustratingly
+            hard, while an expert may find it too easy and lose interest quickly.
+        </p>
+        <p class="text-secondary lh-lg mb-0">
+            Adaptive Difficulty Systems (ADS) solve this by continuously analyzing player data
+            and dynamically adjusting parameters such as enemy speed, health points, resource availability
+            and spawn rates to keep the player engaged.
+        </p>
+    </div>
+</section>
+
+<!-- ML TYPE -->
+<section class="bg-white py-5 border-top border-bottom">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">MACHINE LEARNING TYPE</span>
+        <h2 class="fw-semibold mb-5">How the Model Works</h2>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech text-center shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">Type</h6>
+                    <p class="text-secondary small mb-0">Supervised Learning</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech text-center shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">Input Data</h6>
+                    <p class="text-secondary small mb-0">Deaths, completion time, accuracy, score</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech text-center shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">Expected Output</h6>
+                    <p class="text-secondary small mb-0">Difficulty level adjustment (increase / decrease)</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech text-center shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">Real-World Use</h6>
+                    <p class="text-secondary small mb-0">Left 4 Dead, Resident Evil 4, FIFA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-5">
+    <div class="container col-lg-8">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">PROCESS</span>
+        <h2 class="fw-semibold mb-4">Step-by-Step Process</h2>
+        <div class="d-flex flex-column gap-3">
+            <div class="bg-white border border-primary rounded-3 p-3 ps-4">
+                <p class="fw-semibold mb-1">1. Data Collection</p>
+                <p class="text-secondary small mb-0">The system constantly records player metrics: deaths, reaction time, hit accuracy and level completion rate.</p>
+            </div>
+            <div class="bg-white border border-primary rounded-3 p-3 ps-4">
+                <p class="fw-semibold mb-1">2. Performance Analysis</p>
+                <p class="text-secondary small mb-0">A classification model evaluates whether the player is struggling, balanced or dominating based on the collected data.</p>
+            </div>
+            <div class="bg-white border border-primary rounded-3 p-3 ps-4">
+                <p class="fw-semibold mb-1">3. Difficulty Adjustment</p>
+                <p class="text-secondary small mb-0">The game modifies parameters in real time: enemy health, spawn frequency, available resources and obstacle speed.</p>
+            </div>
+            <div class="bg-white border border-primary rounded-3 p-3 ps-4">
+                <p class="fw-semibold mb-1">4. Continuous Learning</p>
+                <p class="text-secondary small mb-0">The model updates itself with new player data to improve future adjustments and maintain the optimal challenge level.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REAL WORLD EXAMPLES -->
+<section class="bg-white py-5 border-top border-bottom">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">REAL EXAMPLES</span>
+        <h2 class="fw-semibold mb-5">Games Using Adaptive Difficulty</h2>
+        <div class="table-responsive border rounded-3 overflow-hidden shadow-sm">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-uppercase text-secondary small fw-semibold ps-4">Game</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">What it adjusts</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Trigger</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/500/Left_4_Dead/" target="_blank" class="text-primary text-decoration-none">Left 4 Dead</a></td>
+                        <td class="text-secondary">Enemy spawn rate and intensity</td>
+                        <td class="text-secondary">Team health and performance</td>
+                        <td class="text-secondary">Always feels challenging</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/2050650/Resident_Evil_4/" target="_blank" class="text-primary text-decoration-none">Resident Evil 4</a></td>
+                        <td class="text-secondary">Enemy health and item drops</td>
+                        <td class="text-secondary">Player deaths and accuracy</td>
+                        <td class="text-secondary">Balanced survival experience</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/1282680/FIFA_21/" target="_blank" class="text-primary text-decoration-none">FIFA</a></td>
+                        <td class="text-secondary">AI skill and reaction speed</td>
+                        <td class="text-secondary">Score difference and playstyle</td>
+                        <td class="text-secondary">Competitive matches always</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice/" target="_blank" class="text-primary text-decoration-none">Sekiro</a></td>
+                        <td class="text-secondary">Enemy aggression patterns</td>
+                        <td class="text-secondary">Number of deaths per boss</td>
+                        <td class="text-secondary">Keeps frustration manageable</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<div class="text-center mt-4">
+    <a href="/" style="position:fixed;bottom:32px;left:32px;width:48px;height:48px;background:#6610f2;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(102,16,242,0.4);"><img src="/static/home.png" style="width:24px;height:24px;filter:invert(1);"></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

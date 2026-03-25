@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistic Regression - Purchase Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+        .highlight-diagonal{background-color:#ede9ff!important;font-weight:600;color:#6610f2;}
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- NAVBAR -->
+{% include "navbar_light.html" %}
+
+<!-- HEADER -->
+<section class="bg-white py-5 border-bottom">
+    <div class="container py-3">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">WEEK 5 · ACTIVITY</span>
+        <h1 class="display-6 fw-semibold mb-2">Logistic Regression</h1>
+        <p class="text-secondary fs-6 mb-0">Purchase prediction based on user profile</p>
+    </div>
+</section>
+
+<!-- MÉTRICAS -->
+<section class="py-5 bg-white border-bottom">
+    <div class="container">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">MODEL METRICS</span>
+        <div class="row g-4 align-items-start">
+
+            <div class="col-md-3">
+                <div class="card border rounded-3 p-4 text-center shadow-sm">
+                    <p class="text-secondary small text-uppercase fw-semibold mb-2" style="letter-spacing:.05em">Accuracy</p>
+                    <p class="display-5 fw-semibold text-primary mb-0">{{ accuracy }}%</p>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="card border rounded-3 p-4 shadow-sm">
+                    <h6 class="fw-semibold mb-3">Confusion Matrix</h6>
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th></th>
+                                    <th class="text-secondary small">Pred: No purchase</th>
+                                    <th class="text-secondary small">Pred: Purchase</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="fw-semibold text-secondary small">Real: No purchase</td>
+                                    <td class="highlight-diagonal">{{ conf_matrix[0][0] }}</td>
+                                    <td>{{ conf_matrix[0][1] }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-semibold text-secondary small">Real: Purchase</td>
+                                    <td>{{ conf_matrix[1][0] }}</td>
+                                    <td class="highlight-diagonal">{{ conf_matrix[1][1] }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- FORMULARIO -->
+<section class="py-5">
+    <div class="container">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">PREDICTION</span>
+        <h5 class="fw-semibold mb-4">Enter user data</h5>
+        <div class="card border rounded-3 p-4 shadow-sm">
+            <form method="POST">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Age</label>
+                        <input type="number" name="edad" class="form-control" placeholder="e.g. 35" required value="{{ form_data.edad if form_data }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Monthly Income ($)</label>
+                        <input type="number" name="ingreso_mensual" class="form-control" placeholder="e.g. 3000000" required value="{{ form_data.ingreso_mensual if form_data }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Web Visits / Month</label>
+                        <input type="number" name="visitas_web_mes" class="form-control" placeholder="e.g. 12" required value="{{ form_data.visitas_web_mes if form_data }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Time on Site (min)</label>
+                        <input type="number" step="0.1" name="tiempo_sitio_min" class="form-control" placeholder="e.g. 8.5" required value="{{ form_data.tiempo_sitio_min if form_data }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Previous Purchases</label>
+                        <input type="number" name="compras_previas" class="form-control" placeholder="e.g. 3" required value="{{ form_data.compras_previas if form_data }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Used discount?</label>
+                        <select name="descuento_usado" class="form-select" required>
+                            <option value="">Select...</option>
+                            <option value="1" {{ 'selected' if form_data and form_data.descuento_usado == '1' }}>Yes</option>
+                            <option value="0" {{ 'selected' if form_data and form_data.descuento_usado == '0' }}>No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <button type="submit" class="btn btn-primary px-4">Predict</button>
+                        <a href="/logistic" class="btn btn-outline-primary px-4">Clear</a>
+                </div>
+                
+            </form>
+        </div>
+
+        <!-- RESULTADO -->
+        {% if result is not none %}
+        <div class="card border border-primary rounded-3 p-4 mt-4 text-center shadow-sm">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 d-inline-block mx-auto" style="width:fit-content">Result</span>
+            {% if result == 1 %}
+                <h3 class="fw-semibold text-success mb-2">✅ The user WILL purchase</h3>
+            {% else %}
+                <h3 class="fw-semibold text-danger mb-2">❌ The user will NOT purchase</h3>
+            {% endif %}
+            <p class="text-secondary mb-1">Purchase probability: <strong class="text-primary">{{ probability }}%</strong></p>
+            <p class="text-secondary mb-0 small">Target value: <strong class="text-primary">{{ result }}</strong> <span class="text-secondary">(0 = no purchase · 1 = purchase)</span></p>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+<div class="text-center mt-4">
+    <a href="/" style="position:fixed;bottom:32px;left:32px;width:48px;height:48px;background:#6610f2;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(102,16,242,0.4);"><img src="/static/home.png" style="width:24px;height:24px;filter:invert(1);"></a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

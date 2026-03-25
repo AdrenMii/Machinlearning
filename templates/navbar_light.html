@@ -1,0 +1,47 @@
+{# NAVBAR #}
+{# 
+    SISTEMA DE NAVBAR GLOBAL - Usando inclusión de templates Jinja2
+    
+    Esta técnica fue sugerida por Claude (Anthropic) al preguntarle
+    cómo evitar copiar y pegar el navbar en cada página.
+    
+    En vez de repetir el código del navbar en 6+ páginas,
+    Flask permite guardar el navbar en un solo archivo e incluirlo
+    en todas partes con una sola línea:
+    
+        {% include "navbar_light.html" %}  (páginas claras)
+        {% include "navbar_dark.html" %}   (páginas oscuras como NPC)
+    
+    Así cualquier cambio al navbar solo se hace una vez
+    y se refleja automáticamente en toda la aplicación.
+#}
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-light sticky-top" style="background:rgba(255, 255, 255, 0.200);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.08);">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-5 text-primary" href="/">Artificial Intelligence</a>
+        <div class="d-flex gap-3 align-items-center">
+            <div class="dropdown">
+                <a class="nav-link text-secondary dropdown-toggle" href="#" role="button" id="dropdownUseCases" data-bs-toggle="dropdown" aria-expanded="false">ML Use Cases</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownUseCases">
+                    <li><a class="dropdown-item" href="/npc">Intelligent NPCs</a></li>
+                    <li><a class="dropdown-item" href="/procedural">Procedural Generation</a></li>
+                    <li><a class="dropdown-item" href="/adaptive">Adaptive Difficulty</a></li>
+                    <li><a class="dropdown-item" href="/anticheat">Anti-Cheat Detection</a></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <a class="nav-link text-secondary dropdown-toggle" href="#" role="button" id="dropdownConcepts" data-bs-toggle="dropdown" aria-expanded="false">Concepts</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownConcepts">
+                    <li><a class="dropdown-item" href="/linear-concepts">Linear Regression</a></li>
+                    <li><a class="dropdown-item" href="/logistic-concepts">Logistic Regression</a></li>
+                </ul>
+            </div>
+            <div class="dropdown">
+                <a class="nav-link text-secondary dropdown-toggle" href="#" role="button" id="dropdownActivities" data-bs-toggle="dropdown" aria-expanded="false">Activities</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownActivities">
+                    <li><a class="dropdown-item" href="/video-games">Activity 2.1 · Linear Regression</a></li>
+                    <li><a class="dropdown-item text-secondary" style="pointer-events:none;opacity:.5;">🔒 Activity 2.2 · Logistic Regression</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

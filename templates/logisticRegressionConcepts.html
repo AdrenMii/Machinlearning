@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logistic Regression - Concepts</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+        .card-tech{transition:0.2s;}
+        .card-tech:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(102,16,242,0.08);}
+        .formula-box{background:#ede9ff;border-radius:12px;padding:20px 32px;display:inline-block;font-size:1.5rem;font-weight:600;color:#6610f2;letter-spacing:.02em;}
+    </style>
+</head>
+<body class="bg-light">
+
+{% include "navbar_light.html" %}
+
+<section class="bg-white py-5 border-bottom">
+    <div class="container py-4">
+        <div class="col-lg-7">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">WEEK 6 · SUPERVISED LEARNING</span>
+            <h1 class="display-6 fw-semibold mb-3">Logistic Regression</h1>
+            <p class="text-secondary fs-6 lh-lg mb-0">Binary classification, the Sigmoid function, decision boundaries, and performance evaluation via Confusion Matrix.</p>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container col-lg-8">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">DEFINITION</span>
+        <h2 class="fw-semibold mb-4">What is Logistic Regression?</h2>
+        <p class="text-secondary lh-lg">
+            Despite its name, Logistic Regression is a <strong>supervised machine learning</strong> algorithm used for <strong>Classification</strong>. It predicts the probability that an input belongs to a specific category (0 or 1, Yes or No, True or False).
+        </p>
+        <p class="text-secondary lh-lg mb-0">
+            It maps any real-valued number into a value between 0 and 1 using the <strong>Logit function</strong>. It is widely used for medical diagnosis, spam detection, and financial fraud prevention.
+        </p>
+    </div>
+</section>
+
+<section class="bg-white py-5 border-top border-bottom">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">THE SIGMOID FUNCTION</span>
+        <h2 class="fw-semibold mb-5">The Mathematical Core</h2>
+        <div class="row g-4 align-items-center">
+            <div class="col-md-5 text-center">
+                <div class="formula-box">a = 1 / (1 + exp(-z))</div>
+                <p class="text-secondary small mt-3 mb-0">Logistic/Sigmoid Function</p>
+            </div>
+            <div class="col-md-7">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="card border rounded-3 p-3 card-tech shadow-sm">
+                            <h6 class="fw-semibold text-primary mb-1">z — Input Linear Model</h6>
+                            <p class="text-secondary small mb-0">Represented as $z = w \cdot x + b$, where $w$ are weights and $b$ is bias.</p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card border rounded-3 p-3 card-tech shadow-sm">
+                            <h6 class="fw-semibold text-primary mb-1">a — Output Probability</h6>
+                            <p class="text-secondary small mb-0">The result is a value between 0 and 1. If $a > 0.5$, the model predicts class 1.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container col-lg-8">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">EVALUATION</span>
+        <h2 class="fw-semibold mb-4">Performance: Confusion Matrix</h2>
+        <p class="text-secondary lh-lg mb-4">
+            To evaluate a classification model, we use a <strong>Confusion Matrix</strong>. It compares the actual values against the predictions made by the model.
+        </p>
+        <div class="table-responsive border rounded-3 overflow-hidden shadow-sm">
+            <table class="table table-bordered align-middle mb-0 text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th class="small fw-semibold">n = 100</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Predicted: NO</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Predicted: YES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-light fw-semibold small">ACTUAL: NO</td>
+                        <td class="text-success fw-bold">True Negative</td>
+                        <td class="text-danger">False Positive</td>
+                    </tr>
+                    <tr>
+                        <td class="table-light fw-semibold small">ACTUAL: YES</td>
+                        <td class="text-danger">False Negative</td>
+                        <td class="text-success fw-bold">True Positive</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 border-top">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">VISUALIZATION</span>
+        <h2 class="fw-semibold mb-4">Logistic Curve (Sigmoid)</h2>
+        <p class="text-secondary lh-lg mb-4">
+            The <span style="color:#6610f2;font-weight:600;">purple S-curve</span> represents the probability. 
+            Unlike linear regression, the model doesn't draw a straight line; it calculates the likelihood of an event 
+            staying between 0 and 1.
+        </p>
+        <div class="card border rounded-3 p-4 text-center shadow-sm">
+            <img src="data:image/png;base64,{{ graph }}" class="rounded-3 mx-auto d-block" style="max-width:600px;width:100%;" alt="Logistic Regression Graph">
+            <p class="text-secondary small mt-3 mb-0">
+                Generated with <strong>Matplotlib</strong> · 
+                Showing the <strong>Decision Boundary</strong> at 0.5 probability.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-white py-5 border-top border-bottom">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">MODEL WORKFLOW</span>
+        <h2 class="fw-semibold mb-4">Training Process</h2>
+        <p class="text-secondary lh-lg mb-4">
+            Following the methodology from class, the process involves data preparation, feature scaling, and model fitting.
+        </p>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="card border-primary rounded-3 p-4 h-100 shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">1. Split Data</h6>
+                    <p class="text-secondary small mb-0">Dataset is divided into Training (80%) and Test (20%) sets using <code>train_test_split</code>.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-primary rounded-3 p-4 h-100 shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">2. Standardize</h6>
+                    <p class="text-secondary small mb-0">Using <code>StandardScaler</code> to ensure all features have the same scale, which is critical for Logit.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-primary rounded-3 p-4 h-100 shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">3. Evaluation</h6>
+                    <p class="text-secondary small mb-0">Calculating <strong>Accuracy Score</strong> and generating a classification report.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">EXPLORE MORE</span>
+        <h2 class="fw-semibold mb-5">Try the Classifier</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <a href="/logistic" class="text-decoration-none">
+                    <div class="card border border-primary rounded-3 p-4 h-100 shadow-sm card-tech text-center">
+                        <div class="display-4 mb-3">🎯</div>
+                        <h5 class="fw-semibold text-primary mb-2">Purchase Predictor</h5>
+                        <p class="text-secondary small mb-3">Test the classification model using Scikit-Learn's LogisticRegression implementation.</p>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mt-2 d-inline-block">Open predictor →</span>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="https://www.notion.so/32b2f5889fda8176b40ff92bc0c45eec" target="_blank" class="text-decoration-none">
+                    <div class="card border rounded-3 p-4 h-100 shadow-sm card-tech text-center">
+                        <div class="display-4 mb-3">📝</div>
+                        <h5 class="fw-semibold mb-2" style="color:#1a1a1a;">Full Class Notes</h5>
+                        <p class="text-secondary small mb-3">View the complete documentation including code snippets for StandardScaler and Classification Reports.</p>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mt-2 d-inline-block">Open in Notion →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="/" style="position:fixed;bottom:32px;left:32px;width:48px;height:48px;background:#6610f2;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 4px 12px rgba(102,16,242,0.4);">
+    <img src="/static/home.png" style="width:24px;height:24px;filter:invert(1);">
+</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

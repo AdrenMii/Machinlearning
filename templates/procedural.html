@@ -1,23 +1,172 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Generación Procedural</title>
+    <title>Procedural Generation - AI in Video Games</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+        .card-tech{transition:0.2s;}
+        .card-tech:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(102,16,242,0.08);}
+    </style>
 </head>
-<body class="bg-dark text-light">
+<body class="bg-light">
 
-<div class="container mt-5">
-    <h1>Generación Procedural</h1>
-    <p class="mt-4">
-        La generación procedural permite crear mapas, niveles o mundos automáticamente.
-    </p>
-    <p>
-        No Man's Sky utiliza algoritmos avanzados para generar millones 
-        de planetas únicos, ofreciendo una experiencia casi infinita.
-    </p>
-    <a href="/" class="btn btn-outline-light mt-3">Volver al inicio</a>
+<!-- NAVBAR -->
+{% include "navbar_light.html" %}
+
+<!-- HERO -->
+<section class="bg-white py-5 border-bottom">
+    <div class="container py-4">
+        <div class="col-lg-7">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">PROCEDURAL GENERATION</span>
+            <h1 class="display-6 fw-semibold mb-3">Worlds generated<br>by algorithms</h1>
+            <p class="text-secondary fs-6 lh-lg mb-0">
+                Procedural generation allows creating maps, levels, missions and entire worlds
+                automatically using algorithms, mathematical noise and ML models,
+                without needing to design them manually one by one.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- QUÉ ES -->
+<section class="py-5">
+    <div class="container col-lg-8">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">FOUNDATION</span>
+        <h2 class="fw-semibold mb-4">What is procedural generation?</h2>
+        <p class="text-secondary lh-lg">
+            It is a technique where game content — terrain, dungeons, objects, missions or even music —
+            is generated in real time using mathematical rules and algorithms instead of being hand-crafted by artists.
+        </p>
+        <p class="text-secondary lh-lg mb-0">
+            Combined with Machine Learning, models can learn what type of content is most engaging
+            for each player and dynamically generate personalized experiences.
+        </p>
+    </div>
+</section>
+
+<!-- TECHNIQUES -->
+<section class="bg-white py-5 border-top border-bottom">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">TECHNIQUES</span>
+        <h2 class="fw-semibold mb-5">Main techniques used</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">Perlin Noise</h6>
+                    <p class="text-secondary small lh-lg mb-0">Generates natural terrain and height maps with smooth, realistic variations. Used in Minecraft.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">BSP Trees</h6>
+                    <p class="text-secondary small lh-lg mb-0">Recursively divides spaces to generate dungeons, rooms and corridors coherently.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">L-System Grammars</h6>
+                    <p class="text-secondary small lh-lg mb-0">Simulates plant growth, trees and organic structures using rewriting rules.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card border rounded-3 p-4 h-100 card-tech shadow-sm">
+                    <h6 class="fw-semibold text-primary mb-2">Generative Networks (GAN)</h6>
+                    <p class="text-secondary small lh-lg mb-0">Deep learning models that generate entirely new textures, maps and scenarios by learning from existing data.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REAL EXAMPLES -->
+<section class="py-5">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">REAL EXAMPLES</span>
+        <h2 class="fw-semibold mb-5">Games that use it</h2>
+        <div class="table-responsive border rounded-3 overflow-hidden shadow-sm">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-uppercase text-secondary small fw-semibold ps-4">Game</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">What it generates</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Main technique</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://www.minecraft.net" target="_blank" class="text-primary text-decoration-none">Minecraft</a></td>
+                        <td class="text-secondary">Terrain, caves and biomes</td>
+                        <td class="text-secondary">Perlin Noise</td>
+                        <td class="text-secondary">Infinite unique world</td>
+                    </tr>
+                    <tr>
+                         <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/275850/No_Mans_Sky/" target="_blank" class="text-primary text-decoration-none">No Man's Sky</a></td>
+                        <td class="text-secondary">Planets, fauna and flora</td>
+                        <td class="text-secondary">Mathematical algorithms</td>
+                        <td class="text-secondary">18 quintillion planets</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/1145360/Hades/" target="_blank" class="text-primary text-decoration-none">Hades</a></td>
+                        <td class="text-secondary">Rooms and enemies</td>
+                        <td class="text-secondary">BSP + rules</td>
+                        <td class="text-secondary">High replayability</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-semibold"><a href="https://store.steampowered.com/app/239350/Spelunky_2/" target="_blank" class="text-primary text-decoration-none">Spelunky</a></td>
+                        <td class="text-secondary">Full levels</td>
+                        <td class="text-secondary">Template + randomization</td>
+                        <td class="text-secondary">Never the same level</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- VENTAJAS VS DESVENTAJAS -->
+<section class="bg-white py-5 border-top border-bottom">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">ANALYSIS</span>
+        <h2 class="fw-semibold mb-5">Advantages and disadvantages</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border border-success rounded-3 p-4 h-100">
+                    <h6 class="fw-semibold text-success mb-3">✅ Advantages</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="border-bottom pb-2"><p class="fw-semibold mb-1 small">Infinite content</p><p class="text-secondary small mb-0">Generates more content than a human team could ever create manually.</p></div>
+                        <div class="border-bottom pb-2"><p class="fw-semibold mb-1 small">Reduces costs</p><p class="text-secondary small mb-0">Fewer artists and designers needed to build the world.</p></div>
+                        <div class="border-bottom pb-2"><p class="fw-semibold mb-1 small">High replayability</p><p class="text-secondary small mb-0">Every playthrough is different, keeping the game fresh for longer.</p></div>
+                        <div><p class="fw-semibold mb-1 small">Personalization</p><p class="text-secondary small mb-0">With ML, adapts content to each player's style.</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border border-danger rounded-3 p-4 h-100">
+                    <h6 class="fw-semibold text-danger mb-3">❌ Disadvantages</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="border-bottom pb-2"><p class="fw-semibold mb-1 small">Lack of narrative</p><p class="text-secondary small mb-0">Generated content may lack story and clear purpose.</p></div>
+                        <div class="border-bottom pb-2"><p class="fw-semibold mb-1 small">Inconsistent quality</p><p class="text-secondary small mb-0">Can generate boring or meaningless areas if not well calibrated.</p></div>
+                        <div class="border-bottom pb-2"><p class="fw-semibold mb-1 small">Hard to control</p><p class="text-secondary small mb-0">It's complex to guarantee the result is always playable and balanced.</p></div>
+                        <div><p class="fw-semibold mb-1 small">Requires tuning</p><p class="text-secondary small mb-0">Parameters must be carefully adjusted to avoid repetitive results.</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="text-center mt-4">
+    <a href="/" style="position:fixed;bottom:32px;left:32px;width:48px;height:48px;background:#6610f2;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(102,16,242,0.4);"><img src="/static/home.png" style="width:24px;height:24px;filter:invert(1);"></a>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
