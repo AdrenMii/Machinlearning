@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Extra Trees - Game Success Predictor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+        .metric-card{transition:0.2s;}
+        .metric-card:hover{transform:translateY(-3px);}
+    </style>
+</head>
+<body class="bg-light">
+
+{% include "navbar_light.html" %}
+
+<!-- HEADER -->
+<section class="bg-white py-5 border-bottom">
+    <div class="container py-3">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">ACTIVITY 2.2 · EXTRA TREES CLASSIFIER</span>
+        <h1 class="display-6 fw-semibold mb-2">Game Success Predictor</h1>
+        <p class="text-secondary fs-6 mb-0">Predicts whether a video game will be commercially successful based on critic and user ratings.</p>
+    </div>
+</section>
+
+<!-- MODEL METRICS -->
+<section class="py-5 bg-white border-bottom">
+    <div class="container">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">MODEL METRICS</span>
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md">
+                <div class="card border rounded-3 p-3 text-center shadow-sm metric-card">
+                    <p class="text-secondary small text-uppercase fw-semibold mb-1" style="letter-spacing:.05em">Accuracy</p>
+                    <p class="fs-3 fw-semibold text-primary mb-0">{{ metrics.accuracy }}%</p>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card border rounded-3 p-3 text-center shadow-sm metric-card">
+                    <p class="text-secondary small text-uppercase fw-semibold mb-1" style="letter-spacing:.05em">Precision</p>
+                    <p class="fs-3 fw-semibold text-primary mb-0">{{ metrics.precision }}%</p>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card border rounded-3 p-3 text-center shadow-sm metric-card">
+                    <p class="text-secondary small text-uppercase fw-semibold mb-1" style="letter-spacing:.05em">Recall</p>
+                    <p class="fs-3 fw-semibold text-primary mb-0">{{ metrics.recall }}%</p>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card border rounded-3 p-3 text-center shadow-sm metric-card">
+                    <p class="text-secondary small text-uppercase fw-semibold mb-1" style="letter-spacing:.05em">F1-Score</p>
+                    <p class="fs-3 fw-semibold text-primary mb-0">{{ metrics.f1 }}%</p>
+                </div>
+            </div>
+            <div class="col-6 col-md">
+                <div class="card border rounded-3 p-3 text-center shadow-sm metric-card">
+                    <p class="text-secondary small text-uppercase fw-semibold mb-1" style="letter-spacing:.05em">ROC/AUC</p>
+                    <p class="fs-3 fw-semibold text-primary mb-0">{{ metrics.roc_auc }}%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONFUSION MATRIX + FEATURE IMPORTANCE -->
+        <div class="row g-4">
+            <div class="col-md-5">
+                <div class="card border rounded-3 p-4 shadow-sm text-center">
+                    <h6 class="fw-semibold mb-3">Confusion Matrix</h6>
+                    <img src="data:image/png;base64,{{ conf_matrix }}" class="img-fluid mx-auto d-block rounded-3" style="max-width:300px;" alt="Confusion Matrix">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="card border rounded-3 p-4 shadow-sm text-center">
+                    <h6 class="fw-semibold mb-3">Feature Importance</h6>
+                    <img src="data:image/png;base64,{{ feature_graph }}" class="img-fluid mx-auto d-block rounded-3" alt="Feature Importance">
+                    <p class="text-secondary small mt-2 mb-0">
+                        A game is considered <strong>successful</strong> when its global sales exceed
+                        <strong>{{ metrics.median_sales }}M copies</strong> (dataset median).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PREDICTION FORM -->
+<section class="py-5">
+    <div class="container">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">PREDICTION</span>
+        <h5 class="fw-semibold mb-4">Enter game data</h5>
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="card border rounded-3 p-4 shadow-sm">
+                    <form method="POST">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Critic Score (0-100)</label>
+                                <input type="number" name="critic" class="form-control" placeholder="e.g. 85" min="0" max="100" required value="{{ form_data.critic if form_data }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">User Score (0-10)</label>
+                                <input type="number" step="0.1" name="user" class="form-control" placeholder="e.g. 8.2" min="0" max="10" required value="{{ form_data.user if form_data }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">Critic Reviews Count</label>
+                                <input type="number" name="critic_count" class="form-control" placeholder="e.g. 50" required value="{{ form_data.critic_count if form_data }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small text-uppercase fw-semibold" style="letter-spacing:.05em">User Reviews Count</label>
+                                <input type="number" name="user_count" class="form-control" placeholder="e.g. 1500" required value="{{ form_data.user_count if form_data }}">
+                            </div>
+                        </div>
+                        <div class="mt-4 d-flex gap-3">
+                            <button type="submit" class="btn btn-primary px-4">Predict →</button>
+                            <a href="/extra-trees-application" class="btn btn-outline-primary px-4">Clear</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- RESULT -->
+            <div class="col-lg-6">
+                {% if result is not none %}
+                <div class="card border border-primary rounded-3 p-4 shadow-sm text-center h-100 d-flex flex-column justify-content-center">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 mx-auto" style="width:fit-content">Result</span>
+                    {% if result == 1 %}
+                        <h3 class="fw-semibold text-success mb-2">✅ The game WILL be successful</h3>
+                    {% else %}
+                        <h3 class="fw-semibold text-danger mb-2">❌ The game will NOT be successful</h3>
+                    {% endif %}
+                    <p class="text-secondary mb-1">Success probability: <strong class="text-primary">{{ probability }}%</strong></p>
+                    <p class="text-secondary mb-0 small">Target value: <strong class="text-primary">{{ result }}</strong> <span class="text-secondary">(0 = not successful · 1 = successful)</span></p>
+                </div>
+                {% else %}
+                <div class="card border rounded-3 p-4 shadow-sm text-center h-100 d-flex flex-column justify-content-center bg-white">
+                    <p class="display-4 mb-2 opacity-25">🎮</p>
+                    <p class="text-secondary mb-0 small fw-semibold text-uppercase">Result will appear here after prediction</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="/" style="position:fixed;bottom:32px;left:32px;width:48px;height:48px;background:#6610f2;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(102,16,242,0.4);"><img src="/static/home.png" style="width:24px;height:24px;filter:invert(1);"></a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

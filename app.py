@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from LineaRegression import calculateGrade, getGraphBase64 as getStudentGraph
 from LogisticRegressionModel import predict_purchase, get_logistic_graph, get_model_accuracy, get_confusion_matrix
 from VideoGameRegression import predictSales, getGraphBase64 as getVideoGraph
+from ExtraTreesModel import predict_success, get_metrics, get_confusion_matrix_graph, get_feature_importance_graph
 
 app = Flask(__name__)
 
@@ -88,6 +89,32 @@ def logistic_concepts():
     # Esta función llama a la que importamos arriba
     graph_base64 = get_logistic_graph() 
     return render_template("logisticRegressionConcepts.html", graph=graph_base64)
+
+@app.route('/extra-trees-concepts')
+def extraTreesConcepts():
+    return render_template('extraTreesConcepts.html')
+ 
+@app.route('/extra-trees-application', methods=["GET", "POST"])
+def extraTreesApplication():
+    result = None
+    probability = None
+    form_data = None
+    if request.method == "POST":
+        critic = float(request.form["critic"])
+        user = float(request.form["user"])
+        critic_count = float(request.form["critic_count"])
+        user_count = float(request.form["user_count"])
+        result, probability = predict_success(critic, user, critic_count, user_count)
+        form_data = request.form
+    return render_template(
+        "extraTreesApplication.html",
+        result=result,
+        probability=probability,
+        form_data=form_data,
+        metrics=get_metrics(),
+        conf_matrix=get_confusion_matrix_graph(),
+        feature_graph=get_feature_importance_graph()
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
