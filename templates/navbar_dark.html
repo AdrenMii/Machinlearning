@@ -1,40 +1,83 @@
-<nav id="mainNav" class="navbar navbar-dark sticky-top" style="background:rgba(7, 11, 20, 0.20);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.06);">
+<nav id="mainNav" class="navbar navbar-expand-lg navbar-dark sticky-top" style="background:rgba(7, 11, 20, 0.4); backdrop-filter:blur(10px); border-bottom:1px solid rgba(255,255,255,0.08);">
     <div class="container">
-        <a class="navbar-brand fw-bold" style="color:#a78bfa;" href="/">Artificial Intelligence</a>
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="/" style="color: #a78bfa;">
+            <span class="me-2">👾</span> Artificial Intelligence
+        </a>
         
-        <div class="d-flex gap-3 align-items-center">
-            <a class="nav-link text-secondary" href="/">Home</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="dropdown">
-                <a class="nav-link text-secondary dropdown-toggle" href="#" role="button" id="dropdownUseCases" data-bs-toggle="dropdown" aria-expanded="false">ML Use Cases</a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownUseCases">
-                    <li><a class="dropdown-item" href="/npc">NPC Behavior</a></li>
-                    <li><a class="dropdown-item" href="/procedural">Procedural Generation</a></li>
-                    <li><a class="dropdown-item" href="/adaptive">Adaptive Difficulty</a></li>
-                    <li><a class="dropdown-item" href="/anticheat">Anti-Cheat Detection</a></li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto gap-2">
+                <li class="nav-item">
+                    <a class="nav-link text-secondary px-3 nav-hover-purple" href="/">Home</a>
+                </li>
 
-            <div class="dropdown">
-                <a class="nav-link dropdown-toggle" style="color:#a78bfa; font-weight:600;" href="#" role="button" id="dropdownML" data-bs-toggle="dropdown" aria-expanded="false">
-                    Supervised ML
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownML">
-                    <li class="dropdown-header text-uppercase fs-xs fw-bold" style="color:#a78bfa; font-size: 0.75rem;">Linear Regression</li>
-                    <li><a class="dropdown-item" href="/linear-concepts">Basic Concepts</a></li>
-                    <li><a class="dropdown-item" href="/video-games">Application</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    
-                    <li class="dropdown-header text-uppercase fs-xs fw-bold" style="color:#a78bfa; font-size: 0.75rem;">Logistic Regression</li>
-                    <li><a class="dropdown-item" href="/logistic-concepts">Basic Concepts</a></li>
-                    <li><a class="dropdown-item" href="/logistic-application">Application</a></li>
-                    <li><hr class="dropdown-divider"></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link text-secondary px-3 nav-hover-purple dropdown-toggle-clean" href="#" role="button" data-bs-toggle="dropdown">
+                        ML Use Cases
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark border-0 shadow-lg mt-2 custom-dark-menu">
+                        <li><a class="dropdown-item py-2" href="/npc">NPC Behavior</a></li>
+                        <li><a class="dropdown-item py-2" href="/procedural">Procedural Generation</a></li>
+                        <li><a class="dropdown-item py-2" href="/adaptive">Adaptive Difficulty</a></li>
+                        <li><a class="dropdown-item py-2" href="/anticheat">Anti-Cheat Detection</a></li>
+                    </ul>
+                </li>
 
-                    <li class="dropdown-header text-uppercase fs-xs fw-bold" style="color:#a78bfa; font-size: 0.75rem;">Extra Trees (Assigned)</li>
-                    <li><a class="dropdown-item" href="/extra-trees-concepts">Basic Concepts</a></li>
-                    <li><a class="dropdown-item" href="/extra-trees-application">Application</a></li>
-                </ul>
-            </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link fw-bold px-3 nav-hover-purple dropdown-toggle-clean" href="#" role="button" data-bs-toggle="dropdown" style="color: #a78bfa;">
+                        Supervised Machine Learning
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark border-0 shadow-lg mt-2 p-3 custom-dark-menu" style="min-width: 300px;">
+                        <li class="dropdown-header fw-bold text-uppercase small" style="color: #a78bfa; letter-spacing: 0.5px;">Linear Regression</li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/linear-concepts">Basic Concepts</a></li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/video-games">Application</a></li>
+                        
+                        <li><hr class="dropdown-divider my-2 border-light opacity-10"></li>
+                        
+                        <li class="dropdown-header fw-bold text-uppercase small" style="color: #a78bfa; letter-spacing: 0.5px;">Logistic Regression</li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/logistic-concepts">Basic Concepts</a></li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/logistic-application">Application</a></li>
+                        
+                        <li><hr class="dropdown-divider my-2 border-light opacity-10"></li>
+                        
+                        <li class="dropdown-header fw-bold text-uppercase small" style="color: #a78bfa; letter-spacing: 0.5px;">Assigned Classification Model</li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-concepts">Basic Concepts</a></li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-application">Application</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
+
+<style>
+/* Estilos para mantener la estética oscura y morada */
+.dropdown-toggle-clean::after {
+    display: none !important;
+}
+
+.nav-hover-purple:hover {
+    color: #a78bfa !important;
+    transition: 0.3s;
+}
+
+.custom-dark-menu {
+    background: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.2) !important;
+    border-radius: 12px !important;
+}
+
+.dropdown-item {
+    transition: 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(167, 139, 250, 0.15) !important;
+    color: #a78bfa !important;
+    border-radius: 8px;
+}
+</style>
