@@ -43,7 +43,7 @@ def calculateGradeRoute():
         calculateResult = calculateGrade(hours)
     return render_template("linearRegressionGrades.html", result=calculateResult)
 
-@app.route('/logistic', methods=["GET", "POST"])
+@app.route('/logistic-application', methods=["GET", "POST"])
 def logistic():
     result = None
     probability = None
