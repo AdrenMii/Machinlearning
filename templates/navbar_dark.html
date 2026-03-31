@@ -45,10 +45,39 @@
                         
                         <li class="dropdown-header fw-bold text-uppercase small" style="color: #a78bfa; letter-spacing: 0.5px;">Assigned Classification Model</li>
                         <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-concepts">Basic Concepts</a></li>
-                        <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-application">Application </a></li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-application">Application</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<style>
+/* Estilos para mantener la estética oscura y morada */
+.dropdown-toggle-clean::after {
+    display: none !important;
+}
+
+.nav-hover-purple:hover {
+    color: #a78bfa !important;
+    transition: 0.3s;
+}
+
+.custom-dark-menu {
+    background: rgba(15, 23, 42, 0.9) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(167, 139, 250, 0.2) !important;
+    border-radius: 12px !important;
+}
+
+.dropdown-item {
+    transition: 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(167, 139, 250, 0.15) !important;
+    color: #a78bfa !important;
+    border-radius: 8px;
+}
+</style>
