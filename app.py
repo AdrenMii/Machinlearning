@@ -3,10 +3,12 @@ from LineaRegression import calculateGrade, getGraphBase64 as getStudentGraph
 from LogisticRegressionModel import predict_purchase, get_logistic_graph, get_model_accuracy, get_confusion_matrix
 from VideoGameRegression import predictSales, getGraphBase64 as getVideoGraph
 from ExtraTreesModel import predict_success, get_metrics, get_confusion_matrix_graph, get_feature_importance_graph
+import Clustering
+
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/Hello/')
 def home():
     return render_template('home.html')
 
@@ -115,6 +117,14 @@ def extraTreesApplication():
         conf_matrix=get_confusion_matrix_graph(),
         feature_graph=get_feature_importance_graph()
     )
+
+@app.route('/')
+def clustering():
+    info = Clustering.ApplyClusteringkmeans()
+    # Cambia "results" por "clusters"
+    return str(info["centroids"
+    ""])
+
 
 if __name__ == '__main__':
     app.run(debug=True)
