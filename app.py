@@ -3,6 +3,8 @@ from LineaRegression import calculateGrade, getGraphBase64 as getStudentGraph
 from LogisticRegressionModel import predict_purchase, get_logistic_graph, get_model_accuracy, get_confusion_matrix
 from VideoGameRegression import predictSales, getGraphBase64 as getVideoGraph
 from ExtraTreesModel import predict_success, get_metrics, get_confusion_matrix_graph, get_feature_importance_graph
+import Clustering
+import Clusteringclass
 
 app = Flask(__name__)
 
@@ -49,18 +51,15 @@ def logistic():
     probability = None
     form_data = None
     if request.method == "POST":
-        # ... (tu código de captura de datos que ya funciona)
         edad = float(request.form["edad"])
         ingreso_mensual = float(request.form["ingreso_mensual"])
         visitas_web_mes = float(request.form["visitas_web_mes"])
         tiempo_sitio_min = float(request.form["tiempo_sitio_min"])
         compras_previas = float(request.form["compras_previas"])
         descuento_usado = float(request.form["descuento_usado"])
-        
-        result, probability = predict_purchase(edad, ingreso_mensual, visitas_web_mes, 
+        result, probability = predict_purchase(edad, ingreso_mensual, visitas_web_mes,
                                                tiempo_sitio_min, compras_previas, descuento_usado)
         form_data = request.form
-
     return render_template(
         "logisticRegression.html",
         result=result,
@@ -74,26 +73,23 @@ def logistic():
 def video_games():
     graph = getVideoGraph()
     result = None
-
     if request.method == "POST":
         critic = float(request.form["critic"])
         user = float(request.form["user"])
         critic_count = float(request.form["critic_count"])
         user_count = float(request.form["user_count"])
         result = predictSales(critic, user, critic_count, user_count)
-
     return render_template("videoGameRegression.html", result=result, graph=graph)
 
 @app.route('/logistic-concepts')
 def logistic_concepts():
-    # Esta función llama a la que importamos arriba
-    graph_base64 = get_logistic_graph() 
+    graph_base64 = get_logistic_graph()
     return render_template("logisticRegressionConcepts.html", graph=graph_base64)
 
 @app.route('/extra-trees-concepts')
 def extraTreesConcepts():
     return render_template('extraTreesConcepts.html')
- 
+
 @app.route('/extra-trees-application', methods=["GET", "POST"])
 def extraTreesApplication():
     result = None
@@ -116,5 +112,28 @@ def extraTreesApplication():
         feature_graph=get_feature_importance_graph()
     )
 
+
+@app.route('/unsupervised-concepts')
+def unsupervisedConcepts():
+    return render_template('unsupervised_concepts.html')
+
+
+@app.route('/kmeans-manual')
+def kmeansManual():
+    data = Clustering.runManualKMeans()
+    return render_template('kmeans_manual.html', data=data)
+
+
+@app.route('/clustering-application')
+def clusteringApplication():
+    info = Clustering.applyClusteringKMeans()
+    return render_template('clustering_app.html', info=info)
+
+
+@app.route('/clustering-class')
+def clustering_class():
+    # Calling the logic from Clusteringclass.py
+    results = Clusteringclass.apply_class_clustering()
+    return render_template('clustering_class.html', results=results)
 if __name__ == '__main__':
     app.run(debug=True)

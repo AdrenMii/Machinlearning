@@ -31,22 +31,29 @@
                         Supervised Machine Learning
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2 p-3" style="min-width: 300px; background: rgba(255, 255, 255, 0.85); border-radius: 15px;">
-                        
                         <li class="dropdown-header fw-bold text-dark pb-1 text-uppercase small" style="letter-spacing: 0.5px;">Linear Regression</li>
                         <li><a class="dropdown-item py-1 ps-3" href="/linear-concepts">Basic Concepts</a></li>
                         <li><a class="dropdown-item py-1 ps-3" href="/video-games">Application</a></li>
-                        
                         <li><hr class="dropdown-divider my-2"></li>
-                        
                         <li class="dropdown-header fw-bold text-dark pb-1 text-uppercase small" style="letter-spacing: 0.5px;">Logistic Regression</li>
                         <li><a class="dropdown-item py-1 ps-3" href="/logistic-concepts">Basic Concepts</a></li>
                         <li><a class="dropdown-item py-1 ps-3" href="/logistic-application">Application</a></li>
-                        
                         <li><hr class="dropdown-divider my-2"></li>
-                        
                         <li class="dropdown-header fw-bold text-dark pb-1 text-uppercase small" style="letter-spacing: 0.5px;">Assigned Classification Model</li>
                         <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-concepts">Basic Concepts</a></li>
                         <li><a class="dropdown-item py-1 ps-3" href="/extra-trees-application">Application</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link fw-bold px-3 nav-hover-custom dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="color: #7c3aed;">
+                        Unsupervised Machine Learning
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2 p-3" style="min-width: 300px; background: rgba(255, 255, 255, 0.85); border-radius: 15px;">
+                        <li class="dropdown-header fw-bold text-dark pb-1 text-uppercase small" style="letter-spacing: 0.5px;">K-Means Clustering</li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/unsupervised-concepts">Basic Concepts</a></li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/kmeans-manual">Manual Exercise</a></li>
+                        <li><a class="dropdown-item py-1 ps-3" href="/clustering-application">Clustering Application</a></li>
                     </ul>
                 </li>
             </ul>
@@ -55,26 +62,14 @@
 </nav>
 
 <style>
-/* Quita las flechas de los dropdowns */
-.dropdown-toggle::after {
-    display: none !important;
-}
-
-/* Efecto Hover Morado para los links de la Navbar */
-.nav-hover-custom:hover {
-    color: #7c3aed !important;
-    transition: 0.3s;
-}
-
-/* Efecto Hover Morado para los items del Dropdown */
+.dropdown-toggle::after { display: none !important; }
+.nav-hover-custom:hover { color: #7c3aed !important; transition: 0.3s; }
 .dropdown-item:hover {
-    background-color: rgba(124, 58, 237, 0.1) !important; /* Morado muy suave de fondo */
-    color: #7c3aed !important; /* Texto morado */
+    background-color: rgba(124, 58, 237, 0.1) !important;
+    color: #7c3aed !important;
     border-radius: 8px;
     transition: 0.2s;
 }
-
-/* Sombra para que los menús floten bien */
 .dropdown-menu {
     box-shadow: 0 10px 30px rgba(124, 58, 237, 0.15) !important;
     border: 1px solid rgba(124, 58, 237, 0.1) !important;
