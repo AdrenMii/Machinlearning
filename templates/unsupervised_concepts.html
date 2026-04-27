@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unsupervised Learning – Concepts | AI in Video Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#6610f2!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+        .border-primary{border-color:#6610f2!important;}
+
+        .concept-card {
+            border-left: 4px solid #6610f2;
+            background: #faf8ff;
+            border-radius: 0 12px 12px 0;
+            transition: box-shadow .2s;
+        }
+        .concept-card:hover { box-shadow: 0 4px 20px rgba(102,16,242,.12); }
+
+        .formula-box {
+            background: #1e1b2e;
+            color: #c8b8ff;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: .95rem;
+            padding: 1.2rem 1.6rem;
+            letter-spacing: .03em;
+        }
+        .step-badge {
+            width: 40px; height: 40px; min-width: 40px;
+            border-radius: 50%;
+            background: #6610f2;
+            color: #fff;
+            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .app-chip {
+            display: inline-block;
+            background: #ede9ff;
+            color: #6610f2;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: .82rem;
+            font-weight: 600;
+            margin: 4px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+{% include "navbar_light.html" %}
+
+<!-- HERO -->
+<section class="bg-white py-5">
+    <div class="container py-4">
+        <div class="col-lg-7 mx-auto text-center">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">UNSUPERVISED LEARNING</span>
+            <h1 class="display-5 fw-semibold lh-sm mb-3">K-Means Clustering<br><span class="text-primary">Core Concepts</span></h1>
+            <p class="text-secondary fs-6 lh-lg mb-4">
+                Discover how machines find hidden patterns in unlabeled data through
+                unsupervised learning and the K-Means algorithm.
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="/kmeans-manual" class="btn btn-primary px-4">Manual Exercise</a>
+                <a href="/clustering-application" class="btn btn-outline-primary px-4">Live Application</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT IS UNSUPERVISED LEARNING -->
+<section class="py-5" id="unsupervised">
+    <div class="container py-3 col-lg-9">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">DEFINITION</span>
+        <h2 class="fw-semibold mb-4">What is Unsupervised Learning?</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <p class="text-secondary lh-lg">
+                    <strong>Unsupervised Learning</strong> is a branch of Machine Learning where algorithms
+                    learn patterns directly from data <em>without pre-labeled responses</em>.
+                    The model explores the structure of the input, discovering groupings, associations or
+                    anomalies on its own.
+                </p>
+                <p class="text-secondary lh-lg mb-0">
+                    Unlike supervised learning — where each example has a known correct answer —
+                    unsupervised methods ask: <em>"What natural structure exists in this data?"</em>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive border rounded-3 overflow-hidden shadow-sm">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-uppercase text-secondary small fw-semibold ps-3">Aspect</th>
+                                <th class="text-uppercase text-secondary small fw-semibold">Supervised</th>
+                                <th class="text-uppercase text-secondary small fw-semibold">Unsupervised</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ps-3 fw-semibold small">Labels</td><td class="text-secondary small">Required</td><td class="text-secondary small">Not needed</td></tr>
+                            <tr><td class="ps-3 fw-semibold small">Goal</td><td class="text-secondary small">Predict output</td><td class="text-secondary small">Find structure</td></tr>
+                            <tr><td class="ps-3 fw-semibold small">Example</td><td class="text-secondary small">Classification</td><td class="text-secondary small">Clustering</td></tr>
+                            <tr><td class="ps-3 fw-semibold small">Feedback</td><td class="text-secondary small">Error correction</td><td class="text-secondary small">No correction</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- KEY CONCEPTS GRID -->
+<section class="bg-white py-5">
+    <div class="container py-3 col-lg-9">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">KEY CONCEPTS</span>
+        <h2 class="fw-semibold mb-5">Core Terminology</h2>
+        <div class="row g-4">
+
+            <!-- Clustering -->
+            <div class="col-md-6">
+                <div class="concept-card p-4 h-100">
+                    <h5 class="fw-semibold mb-2">📦 What is Clustering?</h5>
+                    <p class="text-secondary small lh-lg mb-0">
+                        Clustering is the task of grouping a set of objects so that objects in the same group
+                        (called a <strong>cluster</strong>) are more similar to each other than to objects in
+                        other groups. It is the most common unsupervised learning task.
+                    </p>
+                </div>
+            </div>
+
+            <!-- K-Means -->
+            <div class="col-md-6">
+                <div class="concept-card p-4 h-100">
+                    <h5 class="fw-semibold mb-2">🔢 What does "K" mean?</h5>
+                    <p class="text-secondary small lh-lg mb-0">
+                        <strong>K</strong> is a hyperparameter that defines <em>how many clusters</em> the
+                        algorithm should find. You choose K before training. K = 3 means the algorithm will
+                        partition the dataset into exactly 3 groups.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Centroids -->
+            <div class="col-md-6">
+                <div class="concept-card p-4 h-100">
+                    <h5 class="fw-semibold mb-2">📍 Centroids</h5>
+                    <p class="text-secondary small lh-lg mb-0">
+                        A <strong>centroid</strong> is the geometric center of a cluster — the mean of all
+                        data points currently assigned to it. At each iteration, centroids are recalculated
+                        as the algorithm refines cluster boundaries.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Euclidean Distance -->
+            <div class="col-md-6">
+                <div class="concept-card p-4 h-100">
+                    <h5 class="fw-semibold mb-2">📐 Euclidean Distance</h5>
+                    <p class="text-secondary small lh-lg mb-2">
+                        The straight-line distance between two points in n-dimensional space.
+                        K-Means uses this metric to decide which centroid each point belongs to.
+                    </p>
+                    <div class="formula-box mt-2">
+                        d(p, q) = √[ Σ (pᵢ − qᵢ)² ]
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iterative Process -->
+            <div class="col-md-6">
+                <div class="concept-card p-4 h-100">
+                    <h5 class="fw-semibold mb-2">🔄 Iterative Process</h5>
+                    <p class="text-secondary small lh-lg mb-0">
+                        K-Means alternates between two steps until convergence: <strong>Assignment</strong>
+                        (each point is assigned to its nearest centroid) and <strong>Update</strong>
+                        (centroids are recalculated). This loop repeats until cluster assignments no
+                        longer change.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Variance & Convergence -->
+            <div class="col-md-6">
+                <div class="concept-card p-4 h-100">
+                    <h5 class="fw-semibold mb-2">📉 Variance & Convergence</h5>
+                    <p class="text-secondary small lh-lg mb-2">
+                        <strong>Variance</strong> (SSE — Sum of Squared Errors) measures the total
+                        distance of points from their assigned centroid. A lower SSE indicates tighter,
+                        better-defined clusters. The algorithm <strong>converges</strong> when SSE stops
+                        decreasing significantly.
+                    </p>
+                    <div class="formula-box">
+                        SSE = Σ Σ ||xᵢ − μₖ||²
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- K-MEANS ALGORITHM STEPS -->
+<section class="py-5">
+    <div class="container py-3 col-lg-9">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">ALGORITHM</span>
+        <h2 class="fw-semibold mb-5">K-Means Step-by-Step</h2>
+        <div class="row g-3">
+            {% set steps = [
+                ("Choose K", "Select the number of clusters K before training begins. This is a manual hyperparameter decision — domain knowledge or the Elbow Method can help choose the right K."),
+                ("Initialize Centroids", "Place K centroids randomly or using a smart strategy (K-Means++) in the feature space. These are the initial cluster centers."),
+                ("Assign Points", "Calculate the Euclidean distance from each data point to every centroid. Assign each point to the nearest centroid."),
+                ("Update Centroids", "Recalculate each centroid as the mean (average) of all data points currently assigned to it."),
+                ("Check Convergence", "Repeat steps 3–4 until the centroids do not move significantly or a maximum number of iterations is reached."),
+                ("Interpret Results", "Analyze cluster characteristics: size, centroid values, and within-cluster variance to understand the discovered groups.")
+            ] %}
+            {% for title, desc in steps %}
+            <div class="col-12">
+                <div class="d-flex gap-3 align-items-start p-3 border rounded-3 bg-white shadow-sm">
+                    <div class="step-badge">{{ loop.index }}</div>
+                    <div>
+                        <h6 class="fw-semibold mb-1">{{ title }}</h6>
+                        <p class="text-secondary small mb-0 lh-lg">{{ desc }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- REAL-WORLD APPLICATIONS -->
+<section class="bg-white py-5">
+    <div class="container py-3 col-lg-9">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">REAL WORLD</span>
+        <h2 class="fw-semibold mb-4">Real-World Applications of K-Means</h2>
+        <p class="text-secondary lh-lg mb-4">
+            K-Means clustering is one of the most widely deployed algorithms across industries
+            precisely because it is fast, interpretable, and scalable.
+        </p>
+        <div class="row g-3">
+            <div class="col-md-4"><div class="border rounded-3 p-3 bg-light h-100"><h6 class="fw-semibold mb-1">🛍️ E-Commerce</h6><p class="text-secondary small mb-0">Customer segmentation for targeted marketing campaigns based on purchase behavior.</p></div></div>
+            <div class="col-md-4"><div class="border rounded-3 p-3 bg-light h-100"><h6 class="fw-semibold mb-1">🏥 Healthcare</h6><p class="text-secondary small mb-0">Grouping patients by clinical features to discover disease subtypes and treatment paths.</p></div></div>
+            <div class="col-md-4"><div class="border rounded-3 p-3 bg-light h-100"><h6 class="fw-semibold mb-1">🎮 Video Games</h6><p class="text-secondary small mb-0">Segmenting players by playstyle to customize difficulty, rewards, and content delivery.</p></div></div>
+            <div class="col-md-4"><div class="border rounded-3 p-3 bg-light h-100"><h6 class="fw-semibold mb-1">📰 NLP</h6><p class="text-secondary small mb-0">Document clustering to organize news articles or support tickets by topic automatically.</p></div></div>
+            <div class="col-md-4"><div class="border rounded-3 p-3 bg-light h-100"><h6 class="fw-semibold mb-1">📡 Telecommunications</h6><p class="text-secondary small mb-0">Network anomaly detection by grouping normal traffic patterns and flagging outliers.</p></div></div>
+            <div class="col-md-4"><div class="border rounded-3 p-3 bg-light h-100"><h6 class="fw-semibold mb-1">🏦 Finance</h6><p class="text-secondary small mb-0">Risk segmentation of loan applicants to identify credit profiles and default likelihood.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5">
+    <div class="container py-3 col-lg-8">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card rounded-3 p-4 h-100 shadow-sm" style="border:2px solid #6610f2!important;">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 d-inline-block" style="width:fit-content">Part 1</span>
+                    <h5 class="fw-semibold mb-2">Manual K-Means Exercise</h5>
+                    <p class="text-secondary mb-4">100-record dataset · 3 iterations · Distance tables · Variance analysis</p>
+                    <a href="/kmeans-manual" class="btn btn-primary mt-auto">View Manual Exercise →</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card rounded-3 p-4 h-100 shadow-sm" style="border:2px solid #0d6efd!important;">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 mb-3 d-inline-block" style="width:fit-content">Part 2</span>
+                    <h5 class="fw-semibold mb-2">Clustering Application</h5>
+                    <p class="text-secondary mb-4">1 200-record dataset · Scikit-learn · Scatter plot · Cluster summary</p>
+                    <a href="/clustering-application" class="btn btn-outline-primary mt-auto">View Application →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

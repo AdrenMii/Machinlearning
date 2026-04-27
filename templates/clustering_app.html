@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clustering Application | AI in Video Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn-primary{background-color:#6610f2!important;border-color:#6610f2!important;color:#fff!important;}
+        .btn-primary:hover{background-color:#0d6efd!important;border-color:#0d6efd!important;}
+        .btn-outline-primary{color:#6610f2!important;border-color:#6610f2!important;background:transparent!important;}
+        .btn-outline-primary:hover{background-color:#6610f2!important;color:#fff!important;}
+        .text-primary{color:#6610f2!important;}
+        .bg-primary-subtle{background-color:#ede9ff!important;}
+
+        .cluster-1-bg { background-color:#f0ebff!important; }
+        .cluster-2-bg { background-color:#dbeafe!important; }
+        .cluster-3-bg { background-color:#d1fae5!important; }
+
+        .cluster-dot-1 { display:inline-block; width:12px; height:12px; border-radius:50%; background:#6610f2; margin-right:6px; }
+        .cluster-dot-2 { display:inline-block; width:12px; height:12px; border-radius:50%; background:#0d6efd; margin-right:6px; }
+        .cluster-dot-3 { display:inline-block; width:12px; height:12px; border-radius:50%; background:#20c997; margin-right:6px; }
+
+        .badge-c1 { background:#6610f2; color:#fff; border-radius:6px; padding:2px 10px; font-size:.78rem; font-weight:700; }
+        .badge-c2 { background:#0d6efd; color:#fff; border-radius:6px; padding:2px 10px; font-size:.78rem; font-weight:700; }
+        .badge-c3 { background:#20c997; color:#fff; border-radius:6px; padding:2px 10px; font-size:.78rem; font-weight:700; }
+
+        .stat-box { border-radius: 12px; padding: 1.2rem 1.5rem; }
+        .centroid-card { border-radius: 12px; font-family: 'Courier New', monospace; }
+
+        .table-scroll { max-height: 400px; overflow-y: auto; border-radius: 10px; }
+        .table-scroll thead th { position: sticky; top: 0; z-index: 1; }
+
+        .info-label { font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; font-weight:600; color:#888; }
+    </style>
+</head>
+<body class="bg-light">
+
+{% include "navbar_light.html" %}
+
+<!-- HERO -->
+<section class="bg-white py-5">
+    <div class="container py-3">
+        <div class="col-lg-8 mx-auto text-center">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">CLUSTERING APPLICATION</span>
+            <h1 class="display-5 fw-semibold lh-sm mb-3">Customer Segmentation<br><span class="text-primary">with K-Means</span></h1>
+            <p class="text-secondary fs-6 lh-lg">
+                A production-style K-Means model trained on {{ info.total_records }} e-commerce customer records,
+                using Scikit-learn and StandardScaler, with full scatter-plot visualization and cluster interpretation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTEXT & DATASET INFO -->
+<section class="py-5">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">DATASET</span>
+        <h2 class="fw-semibold mb-3">Dataset Description</h2>
+        <p class="text-secondary lh-lg mb-4">
+            This application segments <strong>e-commerce customers</strong> based on demographic and behavioral
+            features. Understanding customer groups enables targeted marketing, personalized recommendations, and
+            revenue optimization. The dataset was synthetically generated to mirror realistic customer distributions
+            across three income/age tiers.
+        </p>
+
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="stat-box bg-white border shadow-sm text-center">
+                    <div class="display-6 fw-bold text-primary">{{ info.total_records }}</div>
+                    <div class="info-label mt-1">Total Records</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box bg-white border shadow-sm text-center">
+                    <div class="display-6 fw-bold text-primary">3</div>
+                    <div class="info-label mt-1">Features</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box bg-white border shadow-sm text-center">
+                    <div class="display-6 fw-bold text-primary">K = 3</div>
+                    <div class="info-label mt-1">Clusters</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-box bg-white border shadow-sm text-center">
+                    <div class="display-6 fw-bold text-primary">✔</div>
+                    <div class="info-label mt-1">Scaled (StandardScaler)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="border rounded-3 p-3 bg-white shadow-sm h-100">
+                    <div class="info-label mb-1">Feature 1</div>
+                    <h6 class="fw-semibold mb-1">Age</h6>
+                    <p class="text-secondary small mb-0">Customer age in years. Range: 18–70. Reflects life-stage differences in purchasing behaviour.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="border rounded-3 p-3 bg-white shadow-sm h-100">
+                    <div class="info-label mb-1">Feature 2</div>
+                    <h6 class="fw-semibold mb-1">Annual Income (USD)</h6>
+                    <p class="text-secondary small mb-0">Estimated yearly earnings. Range: $15 000–$120 000. Strong predictor of spending capacity.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="border rounded-3 p-3 bg-white shadow-sm h-100">
+                    <div class="info-label mb-1">Feature 3</div>
+                    <h6 class="fw-semibold mb-1">Spending Score (1–100)</h6>
+                    <p class="text-secondary small mb-0">Mall-assigned score based on purchase frequency and amount. Higher = more active shopper.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PREPROCESSING & TRAINING -->
+<section class="bg-white py-4">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">MODEL TRAINING</span>
+        <h2 class="fw-semibold mb-4">Preprocessing & Model Configuration</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h6 class="fw-semibold mb-2">Data Preprocessing</h6>
+                <p class="text-secondary small lh-lg">
+                    <strong>StandardScaler</strong> was applied to all three features before training.
+                    This transforms each feature to have mean = 0 and standard deviation = 1,
+                    preventing high-magnitude features (e.g., annual income) from dominating the
+                    distance calculations.
+                </p>
+                <div class="border rounded-3 p-3 bg-light">
+                    <code class="small text-dark">
+                        scaler = StandardScaler()<br>
+                        X_scaled = scaler.fit_transform(X_raw)
+                    </code>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h6 class="fw-semibold mb-2">K-Means Configuration</h6>
+                <div class="table-responsive border rounded-3 overflow-hidden shadow-sm">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="ps-3 text-secondary small text-uppercase">Parameter</th>
+                                <th class="text-secondary small text-uppercase">Value</th>
+                                <th class="text-secondary small text-uppercase">Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="ps-3 fw-semibold small">n_clusters</td><td class="small">3</td><td class="text-secondary small">3 customer tiers expected</td></tr>
+                            <tr><td class="ps-3 fw-semibold small">random_state</td><td class="small">42</td><td class="text-secondary small">Reproducibility</td></tr>
+                            <tr><td class="ps-3 fw-semibold small">n_init</td><td class="small">10</td><td class="text-secondary small">Best of 10 initializations</td></tr>
+                            <tr><td class="ps-3 fw-semibold small">max_iter</td><td class="small">300</td><td class="text-secondary small">Convergence limit</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SCATTER PLOT -->
+<section class="py-5">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">VISUALIZATION</span>
+        <h2 class="fw-semibold mb-4">Scatter Plot — Age vs Annual Income</h2>
+        <div class="border rounded-3 p-3 bg-white shadow-sm text-center mb-4">
+            <img src="data:image/png;base64,{{ info.scatter_plot }}"
+                 alt="K-Means Scatter Plot" class="img-fluid rounded-3" style="max-width:750px;">
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-2 border rounded-3 p-3 bg-white shadow-sm">
+                    <span class="cluster-dot-1"></span>
+                    <div><div class="fw-semibold small">Cluster 1</div><div class="text-secondary small">Young / High Engagement</div></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-2 border rounded-3 p-3 bg-white shadow-sm">
+                    <span class="cluster-dot-2"></span>
+                    <div><div class="fw-semibold small">Cluster 2</div><div class="text-secondary small">Mid-Career / Moderate</div></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex align-items-center gap-2 border rounded-3 p-3 bg-white shadow-sm">
+                    <span class="cluster-dot-3"></span>
+                    <div><div class="fw-semibold small">Cluster 3</div><div class="text-secondary small">Senior / Conservative</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CENTROIDS -->
+<section class="bg-white py-4">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">CENTROIDS</span>
+        <h2 class="fw-semibold mb-4">Final Centroids (Original Scale)</h2>
+        <p class="text-secondary lh-lg mb-4">
+            Centroids are shown in their original (inverse-transformed) units after scaling was reversed.
+            Each centroid represents the mean profile of its cluster.
+        </p>
+        <div class="row g-4">
+            {% for c in info.centroids %}
+            <div class="col-md-4">
+                <div class="centroid-card border p-4 bg-light shadow-sm h-100
+                    {% if c.cluster == 1 %}cluster-1-bg{% elif c.cluster == 2 %}cluster-2-bg{% else %}cluster-3-bg{% endif %}">
+                    <span class="badge-c{{ c.cluster }} mb-3 d-inline-block">Centroid {{ c.cluster }}</span>
+                    <div class="mt-2">
+                        <div class="info-label mb-1">Age</div>
+                        <div class="fw-bold fs-5">{{ c.age }} yrs</div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="info-label mb-1">Annual Income</div>
+                        <div class="fw-bold fs-5">${{ "{:,.0f}".format(c.annual_income) }}</div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="info-label mb-1">Spending Score</div>
+                        <div class="fw-bold fs-5">{{ c.spending_score }} / 100</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CLUSTER SUMMARY -->
+<section class="py-5">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">SUMMARY</span>
+        <h2 class="fw-semibold mb-4">Cluster Summary</h2>
+        <div class="table-responsive border rounded-3 shadow-sm overflow-hidden mb-4">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-3 text-uppercase text-secondary small fw-semibold">Cluster</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Count</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Avg Age</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Avg Annual Income</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Avg Spending Score</th>
+                        <th class="text-uppercase text-secondary small fw-semibold">Profile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for k, v in info.summary.items() %}
+                    <tr class="cluster-{{ k }}-bg">
+                        <td class="ps-3"><span class="badge-c{{ k }}">Cluster {{ k }}</span></td>
+                        <td class="fw-semibold">{{ v.count }}</td>
+                        <td>{{ v.avg_age }} yrs</td>
+                        <td>${{ "{:,.0f}".format(v.avg_income) }}</td>
+                        <td>{{ v.avg_score }}</td>
+                        <td class="text-secondary small">
+                            {% if k == 1 %}Young earners, high engagement, budget-conscious
+                            {% elif k == 2 %}Established professionals, moderate spending
+                            {% else %}Senior high-income, conservative shopping behavior{% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- CLUSTER ASSIGNMENT TABLE (first 50) -->
+<section class="bg-white py-4">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">ASSIGNMENTS</span>
+        <h2 class="fw-semibold mb-2">Cluster Assignment Table</h2>
+        <p class="text-secondary small mb-3">Showing the first 50 of {{ info.total_records }} records.</p>
+        <div class="table-scroll border rounded-3 shadow-sm">
+            <table class="table table-hover table-sm align-middle mb-0">
+                <thead style="background:#f3efff;">
+                    <tr>
+                        <th class="ps-3 text-secondary text-uppercase" style="font-size:.7rem">ID</th>
+                        <th class="text-secondary text-uppercase" style="font-size:.7rem">Age</th>
+                        <th class="text-secondary text-uppercase" style="font-size:.7rem">Annual Income</th>
+                        <th class="text-secondary text-uppercase" style="font-size:.7rem">Spending Score</th>
+                        <th class="text-secondary text-uppercase" style="font-size:.7rem">Cluster</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in info.clusters %}
+                    <tr class="cluster-{{ row.cluster }}-bg">
+                        <td class="ps-3 text-secondary">{{ row.id }}</td>
+                        <td>{{ row.age }}</td>
+                        <td>${{ "{:,}".format(row.annual_income) }}</td>
+                        <td>{{ row.spending_score }}</td>
+                        <td><span class="badge-c{{ row.cluster }}">C{{ row.cluster }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- INTERPRETATION -->
+<section class="py-5">
+    <div class="container col-lg-10">
+        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 mb-3 d-inline-block">INTERPRETATION</span>
+        <h2 class="fw-semibold mb-4">Results Interpretation</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="cluster-1-bg border rounded-3 p-4 h-100 shadow-sm">
+                    <span class="badge-c1 mb-2 d-inline-block">Cluster 1 — Young Shoppers</span>
+                    <h6 class="fw-semibold mt-2 mb-2">High Engagement, Low Income</h6>
+                    <p class="text-secondary small lh-lg mb-0">
+                        Young customers (~25 yrs) with lower incomes but <strong>very high spending scores</strong>.
+                        They are frequent, enthusiastic shoppers who respond well to promotions, discounts,
+                        and loyalty programs. Best targets for flash sales and social-media campaigns.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cluster-2-bg border rounded-3 p-4 h-100 shadow-sm">
+                    <span class="badge-c2 mb-2 d-inline-block">Cluster 2 — Mid-Career</span>
+                    <h6 class="fw-semibold mt-2 mb-2">Balanced Profile</h6>
+                    <p class="text-secondary small lh-lg mb-0">
+                        Mid-career professionals (~40 yrs) with moderate income and moderate spending.
+                        They are selective buyers who value quality and convenience.
+                        Best targeted with premium mid-range products, bundles, and subscription offers.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cluster-3-bg border rounded-3 p-4 h-100 shadow-sm">
+                    <span class="badge-c3 mb-2 d-inline-block">Cluster 3 — Senior Spenders</span>
+                    <h6 class="fw-semibold mt-2 mb-2">High Income, Conservative</h6>
+                    <p class="text-secondary small lh-lg mb-0">
+                        Senior customers (~55 yrs) with high incomes but <strong>low spending scores</strong>.
+                        They are deliberate, quality-driven buyers with strong brand loyalty.
+                        Best engaged with premium products, exclusive memberships, and personal service.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="border rounded-3 p-4 bg-white shadow-sm mt-4">
+            <h6 class="fw-semibold mb-2">Business Value</h6>
+            <p class="text-secondary small lh-lg mb-0">
+                K-Means clustering transformed a flat 1 200-record dataset into three actionable customer personas
+                without any prior labeling. Each persona can now receive differentiated marketing messages,
+                product recommendations, and pricing strategies — directly increasing conversion rates and
+                customer lifetime value. This demonstrates the core business power of unsupervised learning.
+            </p>
+        </div>
+
+        <div class="mt-4">
+            <a href="/kmeans-manual" class="btn btn-outline-primary px-4 me-2">← Manual Exercise</a>
+            <a href="/unsupervised-concepts" class="btn btn-primary px-4">Back to Concepts</a>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
