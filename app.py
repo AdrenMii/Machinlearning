@@ -135,5 +135,9 @@ def clustering_class():
     # Calling the logic from Clusteringclass.py
     results = Clusteringclass.apply_class_clustering()
     return render_template('clustering_class.html', results=results)
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    # Render te da un puerto dinámico en la variable PORT, si no existe usa el 5000
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
